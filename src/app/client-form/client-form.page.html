@@ -33,15 +33,17 @@
       <ion-label position="floating">DOB</ion-label>
       <ion-datetime (ionChange)="fetchDate($event)" formControlName="dob" [value]="defaultDate"></ion-datetime>
     </ion-item> -->
+    <div formGroupName="contact">
 
     <ion-item lines="full">
       <ion-label position="floating">Phone number</ion-label>
       <ion-input maxlength="10" formControlName="phoneNumber" type="text" required></ion-input>
     </ion-item>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && user.get('contact').get('phoneNumber').hasError('required') && user.get('phoneNumber').touched">
+    <ion-text class="error ion-padding" color="danger" 
+    *ngIf="clientForm.get('contact').get('phoneNumber').hasError('required') && clientForm.get('contact').get('phoneNumber').touched">
       Phone number is required.
     </ion-text>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && user.get('contact').get('phoneNumber').hasError('required') && user.get('phoneNumber').touched">
+    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorCtr.phoneNumber.errors?.pattern">
       Enter a valid phone number.
     </ion-text>
 
@@ -88,22 +90,17 @@
     </ion-text>
 
 
-
     <ion-item lines="full">
       <ion-label position="floating">Zip</ion-label>
-      <ion-input maxlength="10" formControlName="zip" type="text" required></ion-input>
+      <ion-input formControlName="zip" type="text"></ion-input>
     </ion-item>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorCtr.zip.errors?.required">
-      Zip is required.
+    <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorCtr.zip.errors?.required">
+     Zip is required.
     </ion-text>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorCtr.zip.errors?.pattern">
-      Enter a valid Zip.
+    <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorCtr.zip.errors?.pattern">
+      Enter a valid zip.
     </ion-text>
-
-
-
-    
-
+  </div>
     <ion-row>
       <ion-col>
         <ion-button type="submit" color="danger" expand="block">Submit</ion-button>

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>clients-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-searchbar 
+          [formControl]="searchControl"
+          (ionChange)="onSearchInput()"></ion-searchbar>
+
+
+  <ion-list>
+    <ion-item *ngFor="let client of clients">
+      <ion-label>
+        <h4>{{ client.firstName }}  {{ client.lastName }}</h4>
+        <h4>{{ client.contact.phoneNumber }} </h4>
+        <p>{{ client.contact.city }}, {{ client.contact.country }} </p>
+      </ion-label>
+    </ion-item>
+    
+  </ion-list>
+
+
+  
+</ion-content>

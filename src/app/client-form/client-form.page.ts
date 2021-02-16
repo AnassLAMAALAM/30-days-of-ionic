@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { IClient } from '../interfaces/IClient';
 import { IContact } from '../interfaces/IContact';
 import { ClientService } from './../services/client.service';
@@ -26,14 +26,17 @@ export class ClientFormPage implements OnInit {
 
   ngOnInit() {
     this.clientForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
-      lastName : ['', [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+      firstName: [this.client.firstName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+      lastName : [this.client.lastName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
 
       contact : this.formBuilder.group({
-        phoneNumber: ['', [Validators.required]],
-        adress: ['', [Validators.required, Validators.min(5)]],
-        zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]]
+        phoneNumber: [this.client.contact.phoneNumber, [Validators.required]],
+        adress: [this.client.contact.adress, [Validators.required, Validators.min(5)]],
+        zip : [this.client.contact.zip, [Validators.required, Validators.pattern('[0-9]{5}')]]
       })
+
+
+
     })
   }
 
@@ -46,6 +49,10 @@ export class ClientFormPage implements OnInit {
 
   get errorCtr() {
     return this.clientForm.controls;
+  }
+
+  get errorContactCtr() {
+    return this.clientForm.controls.contact['controls'];
   }
 
 
@@ -82,8 +89,9 @@ export class ClientFormPage implements OnInit {
   
 
   onSubmit(){
-  
-    console.log("sub");
+
+    // console.log(this.clientForm.controls.contact['controls'].adress.errors);
+
 
     this.submitted = true;
     this.client = this.clientForm.value;

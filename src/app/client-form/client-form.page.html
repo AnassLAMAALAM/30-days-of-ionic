@@ -39,11 +39,10 @@
       <ion-label position="floating">Phone number</ion-label>
       <ion-input maxlength="10" formControlName="phoneNumber" type="text" required></ion-input>
     </ion-item>
-    <ion-text class="error ion-padding" color="danger" 
-    *ngIf="clientForm.get('contact').get('phoneNumber').hasError('required') && clientForm.get('contact').get('phoneNumber').touched">
+    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.phoneNumber.errors?.required">
       Phone number is required.
-    </ion-text> 
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorCtr.phoneNumber.errors?.pattern">
+    </ion-text>
+    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.phoneNumber.errors?.pattern">
       Enter a valid phone number.
     </ion-text>
 
@@ -61,7 +60,7 @@
         <ion-select-option value="brown">Brown</ion-select-option>
         <ion-select-option value="blonde">Blonde</ion-select-option>
       </ion-select>
- 
+
     </ion-item>
 
     <ion-item>
@@ -82,10 +81,10 @@
       <ion-label position="floating">Adress</ion-label>
       <ion-input maxlength="10" formControlName="adress" type="text" required></ion-input>
     </ion-item>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorCtr.adress.errors?.required">
+    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.adress.errors?.required">
       Adress number is required.
     </ion-text>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorCtr.adress.errors?.pattern">
+    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.adress.errors?.pattern">
       Enter a valid adress.
     </ion-text>
 
@@ -94,10 +93,10 @@
       <ion-label position="floating">Zip</ion-label>
       <ion-input formControlName="zip" type="text"></ion-input>
     </ion-item>
-    <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorCtr.zip.errors?.required">
+    <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorContactCtr.zip.errors?.required">
      Zip is required.
     </ion-text>
-    <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorCtr.zip.errors?.pattern">
+    <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorContactCtr.zip.errors?.pattern">
       Enter a valid zip.
     </ion-text>
   </div>

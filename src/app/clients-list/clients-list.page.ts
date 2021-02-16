@@ -26,18 +26,12 @@ export class ClientsListPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router){  }
 
-
-
+ 
 
   ngOnInit() {
     
 
-    this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
-
-      this.searching = false;
-      this.setFilteredItems();
-
-    });
+     this.retrieveClients();
 
     this.route.params.subscribe((params: Params) => this.myParam = params['id']);
 
@@ -48,16 +42,6 @@ export class ClientsListPage implements OnInit {
     }
   }
 
-
-  setFilteredItems() {
-    this.clients = this.filterItems(this.searchTerm);
-  }
-
-  filterItems(searchTerm) {
-    return this.clients.filter(item => {
-      return item.firstName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-    });
-  }
 
   retrieveClients() {
   this.clientService.getAll()

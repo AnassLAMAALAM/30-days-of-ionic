@@ -22,22 +22,25 @@ export class ClientFormPage implements OnInit {
   submitted=false;
 
   constructor(private clientService: ClientService,
-    public formBuilder: FormBuilder) {}
+    public formBuilder: FormBuilder) {
 
-  ngOnInit() {
-    this.clientForm = this.formBuilder.group({
-      firstName: [this.client.firstName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
-      lastName : [this.client.lastName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
 
-      contact : this.formBuilder.group({
-        phoneNumber: [this.client.contact.phoneNumber, [Validators.required]],
-        adress: [this.client.contact.adress, [Validators.required, Validators.min(5)]],
-        zip : [this.client.contact.zip, [Validators.required, Validators.pattern('[0-9]{5}')]]
+      this.clientForm = this.formBuilder.group({
+        firstName: [this.client.firstName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+        lastName : [this.client.lastName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+  
+        contact : this.formBuilder.group({
+          phoneNumber: ['', [Validators.required]],
+          adress: ['', [Validators.required, Validators.min(5)]],
+          zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]]
+        })
       })
 
 
+    }
 
-    })
+  ngOnInit() {
+
   }
 
   // fetchDate(e) {
@@ -60,7 +63,7 @@ export class ClientFormPage implements OnInit {
 
   saveClient() {
     console.log("sub");
-    
+
     const data = this.client;
     this.clientService.create(data)
       .subscribe(
@@ -74,37 +77,37 @@ export class ClientFormPage implements OnInit {
 
   updateClient() {
     console.log("up");
-    
+
     const data = this.client;
     this.clientService.update(this.client.clientId,data)
       .subscribe(
         response => {
           console.log("success");
-          
+
         },
         error => {
           console.log(error);
         });
   }
-  
+
 
   onSubmit(){
 
-    // console.log(this.clientForm.controls.contact['controls'].adress.errors);
+     console.log(this.clientForm.controls.contact['controls'].adress.errors);
 
 
     this.submitted = true;
     this.client = this.clientForm.value;
-    this.client.contact.city = this.selectedCity;
-    this.client.contact.country = this.selectedCountry;
+    //this.client.contact.city = this.selectedCity;
+    //this.client.contact.country = this.selectedCountry;
 
     if(this.clientForm?.valid){
-      if (this.editClient) this.updateClient(); 
+      if (this.editClient) this.updateClient();
       else this.saveClient();
     }
     else{
        console.log(this.clientForm.valid);
-       
+
     }
 }
 

@@ -16,13 +16,14 @@
       <ion-grid>
         <ion-row class="ion-align-items-start">
           <ion-col  size="9" class="ion-align-self-start">
-            <ion-icon name="person-circle-outline"></ion-icon> <ion-text>  {{ client?.firstName }}  {{ client?.lastName }} </ion-text> <br>
-            <ion-icon name="phone-portrait-outline"></ion-icon> <ion-text>  {{ client?.contact?.phoneNumber }} </ion-text><br>
-            <ion-icon name="location-outline"></ion-icon> <ion-text> {{ client?.contact?.city }}, {{ client?.contact?.country }} </ion-text> <br>
+            <div *ngIf="(client?.firstName || client?.lastName) != null" ><ion-icon name="person-circle-outline"></ion-icon> <ion-text>  {{ client?.firstName }}  {{ client?.lastName }} </ion-text> </div> <br> 
+            <div *ngIf="(client?.contact?.phoneNumber) != null"><ion-icon name="phone-portrait-outline"></ion-icon> <ion-text>  {{ client?.contact?.phoneNumber }} </ion-text></div> <br> 
+            <div *ngIf="(client?.contact?.country || client?.contact?.city) != null"><ion-icon name="location-outline"></ion-icon> <ion-text> {{ client?.contact?.city }}, {{ client?.contact?.country }} </ion-text> </div> <br> 
           </ion-col>
           <ion-col size="3" class="ion-align-self-start">
+
             <div>
-              <ion-button class="ion-item" color="danger" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <ion-button class="ion-item" color="danger" size="small" (click)="removeClient(client.clientId)"><ion-icon name="trash-outline"></ion-icon></ion-button>
             </div>
             <div>
               <ion-button class="ion-item" color="success" size="small"><ion-icon name="create-outline"></ion-icon>  </ion-button>

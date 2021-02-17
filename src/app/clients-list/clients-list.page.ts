@@ -5,7 +5,8 @@ import { ClientService } from '../services/client.service';
 
 import { FormControl } from "@angular/forms";
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-
+import { AlertController } from '@ionic/angular';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -24,7 +25,47 @@ export class ClientsListPage implements OnInit {
 
   constructor(private clientService: ClientService,
     private route: ActivatedRoute,
-    private router: Router){  }
+    private router: Router,
+    public alertController: AlertController){  }
+
+
+
+
+
+    removeClient(clientId) {
+      this.alertController.create({
+        header: 'Confirm Alert',
+        message: 'Are you sure you want to delete this client?',
+        buttons: [
+          {
+            text: 'Not Sure',
+            handler: () => {
+              console.log('Let me think');
+            }
+          },
+          {
+            text: 'Yes!',
+            handler: () => {
+              this.clientService.delete(clientId)
+                  .subscribe(
+                    response => {
+                      this.clients.forEach((client,index)=>{
+                        if(client.clientId==clientId) this.clients.splice(index,1);
+                        
+  
+
+                     });
+                    },
+                    error => {
+                     
+                    });
+            }
+          }
+        ]
+      }).then(res => {
+        res.present();
+      });
+    }
 
  
 

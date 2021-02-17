@@ -35,19 +35,73 @@
     </ion-item> -->
     <div formGroupName="contact">
 
-       <ion-item lines="full">
-      <ion-label position="floating">Phone number</ion-label>
-      <ion-input maxlength="10" formControlName="phoneNumber" type="text" required></ion-input>
-    </ion-item>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.phoneNumber.errors?.required">
-      Phone number is required.
-    </ion-text>
-    <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.phoneNumber.errors?.pattern">
-      Enter a valid phone number.
-    </ion-text>
+      <ion-item lines="full">
+        <ion-label position="floating">Phone number</ion-label>
+        <ion-input maxlength="10" formControlName="phoneNumber" type="text" required></ion-input>
+      </ion-item>
+      <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.phoneNumber.errors?.required">
+        Phone number is required.
+      </ion-text>
+      <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.phoneNumber.errors?.pattern">
+        Enter a valid phone number.
+      </ion-text>
   
-    
-  </div>
+  
+      <ion-item>
+        <ion-label position="floating">Country</ion-label>
+        <!-- <ion-input type="text" name="title" [(ngModel)]="contact.country"></ion-input> -->
+  
+        
+        <ion-select interface="popover" class="custom-options">
+          <ion-select-option value="brown">Brown</ion-select-option>
+          <ion-select-option value="blonde">Blonde</ion-select-option>
+          <ion-select-option value="black">Black</ion-select-option>
+          <ion-select-option value="red">Red</ion-select-option>
+          <ion-select-option value="brown">Brown</ion-select-option>
+          <ion-select-option value="blonde">Blonde</ion-select-option>
+        </ion-select>
+  
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">City</ion-label>
+        <!-- <ion-input type="text" name="title" [(ngModel)]="contact.city"></ion-input> -->
+        <ion-select interface="popover" class="custom-options">
+          <ion-select-option value="brown">Brown</ion-select-option>
+          <ion-select-option value="blonde">Blonde</ion-select-option>
+          <ion-select-option value="black">Black</ion-select-option>
+          <ion-select-option value="red">Red</ion-select-option>
+          <ion-select-option value="brown">Brown</ion-select-option>
+          <ion-select-option value="blonde">Blonde</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+  
+      <ion-item lines="full">
+        <ion-label position="floating">Adress</ion-label>
+        <ion-input maxlength="10" formControlName="adress" type="text" required></ion-input>
+      </ion-item>
+      <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.adress.errors?.required">
+        Adress number is required.
+      </ion-text>
+      <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.adress.errors?.pattern">
+        Enter a valid adress.
+      </ion-text>
+  
+  
+      <ion-item lines="full">
+        <ion-label position="floating">Zip</ion-label>
+        <ion-input formControlName="zip" type="text"></ion-input>
+      </ion-item>
+      <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorContactCtr.zip.errors?.required">
+       Zip is required.
+      </ion-text>
+      <ion-text class="error ion-padding" color="danger"  *ngIf="submitted && errorContactCtr.zip.errors?.pattern">
+        Enter a valid zip.
+      </ion-text>
+    </div>
+
+  
     <ion-row>
       <ion-col>
         <ion-button type="submit" color="danger" expand="block">Submit</ion-button>

@@ -12,11 +12,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'client-form',
     loadChildren: () => import('./client-form/client-form.module').then( m => m.ClientFormPageModule)
   },
   {
-    path: 'clients-list',
+    path: '',
     loadChildren: () => import('./clients-list/clients-list.module').then( m => m.ClientsListPageModule)
   }
 

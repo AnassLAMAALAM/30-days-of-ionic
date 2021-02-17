@@ -16,20 +16,19 @@
       <ion-grid>
         <ion-row class="ion-align-items-start">
           <ion-col  size="9" class="ion-align-self-start">
-            <ion-text>Name : {{ client.firstName }}  {{ client.lastName }} </ion-text> <br>
-            <ion-text>Phone : {{ client.contact.phoneNumber }} </ion-text><br>
-            <ion-text>City : {{ client.contact.city }}, {{ client.contact.country }} </ion-text> <br>
+            <ion-icon name="person-circle-outline"></ion-icon> <ion-text>  {{ client?.firstName }}  {{ client?.lastName }} </ion-text> <br>
+            <ion-icon name="phone-portrait-outline"></ion-icon> <ion-text>  {{ client?.contact?.phoneNumber }} </ion-text><br>
+            <ion-icon name="location-outline"></ion-icon> <ion-text> {{ client?.contact?.city }}, {{ client?.contact?.country }} </ion-text> <br>
           </ion-col>
-  
           <ion-col size="3" class="ion-align-self-start">
             <div>
-              <ion-button color="danger" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
+              <ion-button class="ion-item" color="danger" size="small"><ion-icon name="trash-outline"></ion-icon></ion-button>
             </div>
             <div>
-              <ion-button color="success" size="small"><ion-icon name="create-outline"></ion-icon>  </ion-button>
+              <ion-button class="ion-item" color="success" size="small"><ion-icon name="create-outline"></ion-icon>  </ion-button>
             </div>
             <div>
-              <ion-button color="primary" size="small"><ion-icon name="eye-outline"></ion-icon>  </ion-button>
+              <ion-button class="ion-item" color="primary" size="small"><ion-icon name="eye-outline"></ion-icon>  </ion-button>
             </div>
           </ion-col>
         </ion-row>

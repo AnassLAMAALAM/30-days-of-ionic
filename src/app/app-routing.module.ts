@@ -3,22 +3,18 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: '',
+    loadChildren: () => import('./clients-list/clients-list.module').then( m => m.ClientsListPageModule)
   },
   {
-    path: 'home',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'client-form',
+    path: 'add-client',
     loadChildren: () => import('./client-form/client-form.module').then( m => m.ClientFormPageModule)
   },
   {
-    path: '',
+    path: 'edit-client/:id',
     loadChildren: () => import('./clients-list/clients-list.module').then( m => m.ClientsListPageModule)
   }
+
 
 ];
 

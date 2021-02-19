@@ -28,10 +28,6 @@ export class ClientsListPage implements OnInit {
     private router: Router,
     public alertController: AlertController){  }
 
-
-
-
-
     removeClient(clientId) {
       this.alertController.create({
         header: 'Confirm Alert',
@@ -78,7 +74,7 @@ export class ClientsListPage implements OnInit {
 
     if (this.myParam != null) {
       this.router.navigate(['/']);
-      this.deleteClient(this.myParam);
+      this.removeClient(this.myParam);
       this.myParam = null;
     }
   }
@@ -95,22 +91,4 @@ export class ClientsListPage implements OnInit {
       console.log(error);
     });
   }
-
-  deleteClient(clientId) {
-
-    if (confirm('Are you sure you want to delete this thing from the database?')) {
-    this.clientService.delete(clientId)
-      .subscribe(
-        response => {
-          console.log("The record has been deleted !");
-          this.clients.forEach((client,index)=>{
-            if(client.clientId==clientId) this.clients.splice(index,1);
-         });
-        },
-        error => {
-         console.log("Error !!");
-        });
-    } 
-  }
-
 }

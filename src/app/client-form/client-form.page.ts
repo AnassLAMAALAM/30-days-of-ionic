@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { IClient } from '../interfaces/IClient';
@@ -22,25 +23,44 @@ export class ClientFormPage implements OnInit {
   submitted=false;
 
   constructor(private clientService: ClientService,
-    public formBuilder: FormBuilder) {
-
-
-      this.clientForm = this.formBuilder.group({
-        firstName: [this.client.firstName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
-        lastName : [this.client.lastName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
-  
-        contact : this.formBuilder.group({
-          phoneNumber: ['', [Validators.required]],
-          adress: ['', [Validators.required, Validators.min(5)]],
-          zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]]
-        })
-      })
-
-
-    }
+    public formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router) {  }
 
   ngOnInit() {
+    this.retrieveClient();
 
+    
+    this.clientForm = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+      lastName : [this.client.lastName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+
+      contact : this.formBuilder.group({
+        phoneNumber: ['', [Validators.required]],
+        adress: ['', [Validators.required, Validators.min(5)]],
+        zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]]
+      })
+    })
+
+  }
+
+
+  retrieveClient(){
+    
+    this.route.paramMap.subscribe(params => {
+      if(params.get('id') != null){
+
+       this.editClient = true;
+       this.clientService.get(params.get('id')).subscribe(client =>{
+          
+          this.client = client;
+
+          
+          
+          
+        })   
+      }
+      });
   }
 
   // fetchDate(e) {

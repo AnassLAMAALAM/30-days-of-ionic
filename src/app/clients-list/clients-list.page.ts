@@ -29,7 +29,7 @@ export class ClientsListPage implements OnInit {
     public alertController: AlertController){  }
 
     navigate(client){
-      this.router.navigate(['/edit-client', client.clientId]);
+      this.router.navigate(['/edit-client', client.clientId]);   
     }
     removeClient(clientId) {
       this.alertController.create({

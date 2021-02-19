@@ -54,7 +54,8 @@ export class ClientFormPage implements OnInit {
        this.clientService.get(params.get('id')).subscribe(client =>{
           
           this.client = client;
-
+          console.log(this.client.clientId);
+          
           
           
           

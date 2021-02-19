@@ -28,6 +28,9 @@ export class ClientsListPage implements OnInit {
     private router: Router,
     public alertController: AlertController){  }
 
+    navigate(client){
+      this.router.navigate(['/edit-client', client.clientId]);
+    }
     removeClient(clientId) {
       this.alertController.create({
         header: 'Confirm Alert',
@@ -47,9 +50,6 @@ export class ClientsListPage implements OnInit {
                     response => {
                       this.clients.forEach((client,index)=>{
                         if(client.clientId==clientId) this.clients.splice(index,1);
-                        
-  
-
                      });
                     },
                     error => {

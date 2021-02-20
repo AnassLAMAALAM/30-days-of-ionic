@@ -12,29 +12,53 @@
 
   <ion-list>
 
-    <ion-item  class="plan" text-wrap detail-push *ngFor="let client of clients">
-      <ion-grid>
-        <ion-row class="ion-align-items-start">
-          <ion-col  size="9" class="ion-align-self-start">
-            <div *ngIf="(client?.firstName || client?.lastName) != null" ><ion-icon name="person-circle-outline"></ion-icon> <ion-text>  {{ client?.firstName }}  {{ client?.lastName }} </ion-text> </div> <br> 
-            <div *ngIf="(client?.contact?.phoneNumber) != null"><ion-icon name="phone-portrait-outline"></ion-icon> <ion-text>  {{ client?.contact?.phoneNumber }} </ion-text></div> <br> 
-            <div *ngIf="(client?.contact?.country || client?.contact?.city) != null"><ion-icon name="location-outline"></ion-icon> <ion-text> {{ client?.contact?.city }}, {{ client?.contact?.country }} </ion-text> </div> <br> 
-          </ion-col>
-          <ion-col size="3" class="ion-align-self-start">
 
-            <div>
-              <ion-button class="ion-item" color="danger" size="small" (click)="removeClient(client.clientId)"><ion-icon name="trash-outline"></ion-icon></ion-button>
-            </div>
-            <div>
-              <ion-button class="ion-item" color="success" size="small" (click)="navigate(client)"><ion-icon name="create-outline"></ion-icon>  </ion-button>
-            </div>
-            <div>
-              <ion-button class="ion-item" color="primary" size="small"><ion-icon name="eye-outline"></ion-icon>  </ion-button>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+    <ion-item-sliding id="item100" *ngFor="let client of clients">
+      <ion-item href="#">
+        <ion-label>
+          <div *ngIf="(client?.firstName || client?.lastName) != null" >
+            
+            <h2>  <ion-icon name="person-circle-outline"></ion-icon>  
+              {{ client?.firstName }}  {{ client?.lastName }} 
+            </h2>
+           </div> 
+
+
+           <p *ngIf="(client?.contact?.phoneNumber) != null">
+             <ion-icon name="phone-portrait-outline"></ion-icon> 
+             <ion-text>  {{ client?.contact?.phoneNumber }} </ion-text>
+            </p> 
+           <p *ngIf="(client?.contact?.country || client?.contact?.city) != null">
+             <ion-icon name="location-outline"></ion-icon> 
+             <ion-text> {{ client?.contact?.city }}, {{ client?.contact?.country }} </ion-text> 
+            </p> 
+         
+
+
+        </ion-label>
+
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option>
+          <ion-icon slot="icon-only" name="heart"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option class="ion-item" color="danger" (click)="removeClient(client.clientId)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+
+        <ion-item-option class="ion-item" color="success" (click)="navigate(client)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+
+
 
     <!-- <ion-item *ngFor="let client of clients">
       <ion-label>

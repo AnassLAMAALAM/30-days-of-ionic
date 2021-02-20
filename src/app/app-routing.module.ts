@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./clients-list/clients-list.module').then( m => m.ClientsListPageModule)
   },
   {
+    path: 'clients-list',
+    loadChildren: () => import('./clients-list/clients-list.module').then( m => m.ClientsListPageModule)
+  },
+  {
     path: 'add-client',
     loadChildren: () => import('./client-form/client-form.module').then( m => m.ClientFormPageModule)
   },

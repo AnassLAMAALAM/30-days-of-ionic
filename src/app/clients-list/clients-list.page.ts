@@ -8,7 +8,6 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { timer } from 'rxjs';
 
-
 @Component({
   selector: 'app-clients-list',
   templateUrl: './clients-list.page.html',
@@ -69,14 +68,6 @@ export class ClientsListPage implements OnInit {
     
 
      this.retrieveClients();
-
-    this.route.params.subscribe((params: Params) => this.myParam = params['id']);
-
-    if (this.myParam != null) {
-      this.router.navigate(['/']);
-      this.removeClient(this.myParam);
-      this.myParam = null;
-    }
   }
 
 

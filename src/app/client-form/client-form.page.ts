@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
@@ -26,30 +27,39 @@ export class ClientFormPage implements OnInit {
   constructor(private clientService: ClientService,
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router) {  }
+    private router: Router,
+    public alertController: AlertController) {  }
+
+    async presentAlert() {
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Confirmation',
+        message: 'Record has been saved successfully.',
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+    }
 
   ngOnInit() {
     this.retrieveClient();
 
     this.clientForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
-      lastName : ['', [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+      firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]],
+      lastName : ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]],
 
       contact : this.formBuilder.group({
-        phoneNumber: ['', [Validators.required]],
-        adress: ['', [Validators.required, Validators.min(5)]],
+        phoneNumber: ['',[Validators.required,Validators.minLength(9),Validators.required,Validators.pattern('[0-9]*')]],
+        adress: ['', [Validators.required]],
         zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]]
       })
     })
 
   }
 
-
   retrieveClient(){
-    
     this.route.paramMap.subscribe(params => {
       if(params.get('id') != null){
-
         this.clientId = Number(params.get('id')); 
         this.editClient = true;
         this.clientService.get(this.clientId).subscribe(client =>{
@@ -60,7 +70,6 @@ export class ClientFormPage implements OnInit {
       });
   }
 
-
   get errorCtr() {
     return this.clientForm.controls;
   }
@@ -69,8 +78,7 @@ export class ClientFormPage implements OnInit {
     return this.clientForm.controls.contact['controls'];
   }
 
-  saveClient() {
-  
+  saveClient() {  
     const data = this.client;
     this.clientService.create(data)
       .subscribe(
@@ -89,19 +97,15 @@ export class ClientFormPage implements OnInit {
     this.clientService.update(this.clientId,data)
       .subscribe(
         response => {
-          console.log("success")
+          console.log("success");
+          this.presentAlert();
         },
         error => {
           console.log(error);
         });
   }
 
-
   onSubmit(){
-
-     console.log(this.clientForm.controls.contact['controls'].adress.errors);
-
-
     this.submitted = true;
     this.client = this.clientForm.value;
     //this.client.contact.city = this.selectedCity;
@@ -113,8 +117,6 @@ export class ClientFormPage implements OnInit {
     }
     else{
        console.log(this.clientForm.valid);
-
     }
 }
-
 }

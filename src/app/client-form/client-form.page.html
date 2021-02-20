@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Client Form</ion-title>
+    <ion-title *ngIf="!editClient">New Client</ion-title>
+    <ion-title *ngIf="editClient">Update Client</ion-title>
     <ion-buttons slot="start">
       <ion-back-button> </ion-back-button>
     </ion-buttons>
@@ -40,7 +41,7 @@
 
       <ion-item lines="full">
         <ion-label position="floating">Phone number</ion-label>
-        <ion-input maxlength="10" formControlName="phoneNumber" type="text" required></ion-input>
+        <ion-input formControlName="phoneNumber" type="text"></ion-input>
       </ion-item>
       <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.phoneNumber.errors?.required">
         Phone number is required.
@@ -82,7 +83,7 @@
   
       <ion-item lines="full">
         <ion-label position="floating">Adress</ion-label>
-        <ion-input maxlength="10" formControlName="adress" type="text" required></ion-input>
+        <ion-input formControlName="adress" type="text"></ion-input>
       </ion-item>
       <ion-text class="error ion-padding" color="danger" *ngIf="submitted && errorContactCtr.adress.errors?.required">
         Adress number is required.
@@ -107,7 +108,7 @@
   
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Submit</ion-button>
+        <ion-button type="submit" color="danger" expand="block" >Save</ion-button>
       </ion-col>
     </ion-row>
   </form>

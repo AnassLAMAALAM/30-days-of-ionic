@@ -26,7 +26,7 @@
               <ion-button class="ion-item" color="danger" size="small" (click)="removeClient(client.clientId)"><ion-icon name="trash-outline"></ion-icon></ion-button>
             </div>
             <div>
-              <ion-button class="ion-item" color="success" size="small" [routerLink]="['/edit-client', client]"><ion-icon name="create-outline"></ion-icon>  </ion-button>
+              <ion-button class="ion-item" color="success" size="small" (click)="navigate(client)"><ion-icon name="create-outline"></ion-icon>  </ion-button>
             </div>
             <div>
               <ion-button class="ion-item" color="primary" size="small"><ion-icon name="eye-outline"></ion-icon>  </ion-button>

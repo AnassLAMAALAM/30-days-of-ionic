@@ -28,8 +28,8 @@ export class ClientsListPage implements OnInit {
     private router: Router,
     public alertController: AlertController){  }
 
-    navigate(client){
-      this.router.navigate(['/edit-client', client.clientId]);   
+    navigate(c){
+      this.router.navigate(['/edit-client', c.clientId]);   
     }
     removeClient(clientId) {
       this.alertController.create({

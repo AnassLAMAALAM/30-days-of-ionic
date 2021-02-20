@@ -13,6 +13,7 @@ import { ClientService } from './../services/client.service';
 export class ClientFormPage implements OnInit {
 
   clientForm: FormGroup;
+  clientId : Number;
   client = {} as IClient;
   contact = {} as IContact;
   selectedCountry = "";
@@ -30,10 +31,9 @@ export class ClientFormPage implements OnInit {
   ngOnInit() {
     this.retrieveClient();
 
-    
     this.clientForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
-      lastName : [this.client.lastName, [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
+      lastName : ['', [Validators.required, Validators.pattern('([a-zA-Z]{2,30}\s*)+')]],
 
       contact : this.formBuilder.group({
         phoneNumber: ['', [Validators.required]],
@@ -50,26 +50,16 @@ export class ClientFormPage implements OnInit {
     this.route.paramMap.subscribe(params => {
       if(params.get('id') != null){
 
-       this.editClient = true;
-       this.clientService.get(params.get('id')).subscribe(client =>{
-          
-          this.client = client;
-          console.log(this.client.clientId);
-          
-          
-          
-          
+        this.clientId = Number(params.get('id')); 
+        this.editClient = true;
+        this.clientService.get(this.clientId).subscribe(client =>{
+        this.client = client;
+        this.clientForm.patchValue(client);
         })   
       }
       });
   }
 
-  // fetchDate(e) {
-  //   let date = new Date(e.target.value).toISOString().substring(0, 10);
-  //   this.clientForm.get('dob').setValue(date, {
-  //     onlyself: true
-  //   })
-  // }
 
   get errorCtr() {
     return this.clientForm.controls;
@@ -79,12 +69,8 @@ export class ClientFormPage implements OnInit {
     return this.clientForm.controls.contact['controls'];
   }
 
-
-
-
   saveClient() {
-    console.log("sub");
-
+  
     const data = this.client;
     this.clientService.create(data)
       .subscribe(
@@ -97,14 +83,13 @@ export class ClientFormPage implements OnInit {
   }
 
   updateClient() {
-    console.log("up");
-
+    console.log(this.client);
+    this.client.clientId = this.clientId;
     const data = this.client;
-    this.clientService.update(this.client.clientId,data)
+    this.clientService.update(this.clientId,data)
       .subscribe(
         response => {
-          console.log("success");
-
+          console.log("success")
         },
         error => {
           console.log(error);

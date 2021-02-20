@@ -11,11 +11,9 @@ const routes: Routes = [
     loadChildren: () => import('./client-form/client-form.module').then( m => m.ClientFormPageModule)
   },
   {
-    path: 'edit-client',
-    loadChildren: () => import('./clients-list/clients-list.module').then( m => m.ClientsListPageModule)
+    path: 'edit-client/:id',
+    loadChildren: () => import('./client-form/client-form.module').then( m => m.ClientFormPageModule)
   }
-
-
 ];
 
 @NgModule({

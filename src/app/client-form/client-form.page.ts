@@ -1,4 +1,4 @@
-import { AlertController } from '@ionic/angular';
+import { AlertService } from './../services/alert.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
@@ -28,18 +28,9 @@ export class ClientFormPage implements OnInit {
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    public alertController: AlertController) {  }
+    public alert : AlertService) {  }
 
-    async presentAlert() {
-      const alert = await this.alertController.create({
-        cssClass: 'my-custom-class',
-        header: 'Confirmation',
-        message: 'Record has been saved successfully.',
-        buttons: ['OK']
-      });
   
-      await alert.present();
-    }
 
   ngOnInit() {
     this.retrieveClient();
@@ -98,7 +89,7 @@ export class ClientFormPage implements OnInit {
       .subscribe(
         response => {
           console.log("success");
-          this.presentAlert();
+          this.alert.onSuccess();
         },
         error => {
           console.log(error);

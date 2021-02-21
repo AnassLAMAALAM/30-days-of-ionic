@@ -74,7 +74,7 @@ export class ClientFormPage implements OnInit {
     this.clientService.create(data)
       .subscribe(
         response => {
-          console.log(response);
+          this.alert.onSuccess();
         },
         error => {
           console.log(error);

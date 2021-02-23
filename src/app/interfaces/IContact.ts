@@ -4,8 +4,8 @@ export interface IContact {
     phoneNumber : string;
     email : string;
     adress : string;
-    city : string;
     zip : string;
     country : string;
+    city : string;
 
 }

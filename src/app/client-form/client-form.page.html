@@ -53,30 +53,17 @@
   
       <ion-item>
         <ion-label position="floating">Country</ion-label>
-        <!-- <ion-input type="text" name="title" [(ngModel)]="contact.country"></ion-input> -->
-  
-        
-        <ion-select interface="popover" class="custom-options">
-          <ion-select-option value="brown">Brown</ion-select-option>
-          <ion-select-option value="blonde">Blonde</ion-select-option>
-          <ion-select-option value="black">Black</ion-select-option>
-          <ion-select-option value="red">Red</ion-select-option>
-          <ion-select-option value="brown">Brown</ion-select-option>
-          <ion-select-option value="blonde">Blonde</ion-select-option>
+
+        <ion-select formControlName="country" interface="popover" class="custom-options" (ionChange)="onChangeCountry()">
+          <ion-select-option value="brown" *ngFor="let country of countriesList" [value]="country.name"> {{country.name}}</ion-select-option>
         </ion-select>
-  
       </ion-item>
   
       <ion-item>
         <ion-label position="floating">City</ion-label>
         <!-- <ion-input type="text" name="title" [(ngModel)]="contact.city"></ion-input> -->
-        <ion-select interface="popover" class="custom-options">
-          <ion-select-option value="brown">Brown</ion-select-option>
-          <ion-select-option value="blonde">Blonde</ion-select-option>
-          <ion-select-option value="black">Black</ion-select-option>
-          <ion-select-option value="red">Red</ion-select-option>
-          <ion-select-option value="brown">Brown</ion-select-option>
-          <ion-select-option value="blonde">Blonde</ion-select-option>
+        <ion-select formControlName="city" interface="popover" class="custom-options" (ionChange)="onChangeCity()">
+          <ion-select-option value="brown" *ngFor="let city of citiesList"[value]="city"> {{city}}</ion-select-option>
         </ion-select>
       </ion-item>
   

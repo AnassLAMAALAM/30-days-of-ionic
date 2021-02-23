@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms"
 import { IClient } from '../interfaces/IClient';
 import { IContact } from '../interfaces/IContact';
 import { ClientService } from './../services/client.service';
+import countries from '../_files/countries.json';
 
 @Component({
   selector: 'app-client-form',
@@ -33,6 +34,7 @@ export class ClientFormPage implements OnInit {
   
 
   ngOnInit() {
+    this.fetchCoutriesCities();
     this.retrieveClient();
 
     this.clientForm = this.formBuilder.group({
@@ -42,10 +44,31 @@ export class ClientFormPage implements OnInit {
       contact : this.formBuilder.group({
         phoneNumber: ['',[Validators.required,Validators.minLength(9),Validators.required,Validators.pattern('[0-9]*')]],
         adress: ['', [Validators.required]],
-        zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]]
+        zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
+        city : ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]],
+        country : ['Morocco', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]]
       })
     })
 
+  }
+
+  fetchCoutriesCities(){
+    let cr = [];
+    let cr2 = [];
+    Object.keys(countries).map(function(key){
+      cr.push({[key]:countries[key]})
+    });
+    cr.forEach(element => {
+      Object.keys(element).map(function(key){
+        cr2.push({'name' : key})
+      });
+    });
+    this.countriesList = cr2;
+
+    console.log(this.countriesList);
+    
+    // this.selectedCountry = this.countriesList[0].name;
+    // this.onChangeCountry(this.selectedCountry);
   }
 
   retrieveClient(){
@@ -110,4 +133,27 @@ export class ClientFormPage implements OnInit {
        console.log(this.clientForm.valid);
     }
 }
+
+onChangeCountry() {
+
+  console.log(this.clientForm.value.contact.country);
+  
+  let selectedCountry = this.clientForm.value.contact.country;
+  
+  this.citiesList = [];
+  this.citiesList = countries[selectedCountry];
+   this.selectedCountry = selectedCountry;
+  if (this.editClient) {
+      this.selectedCity = this.client.contact.city;
+  }
+ else this.selectedCity = this.citiesList[0];
+}
+
+onChangeCity() {
+  this.selectedCity = this.clientForm.value.contact.city;
+
+  console.log(this.selectedCity);
+  
+}
+
 }

@@ -16,17 +16,35 @@ import { timer } from 'rxjs';
 export class ClientsListPage implements OnInit {
 
   clients : IClient[];
+  clientsX : IClient[];
   myParam : String;
   countriesList = [];
   citiesList = [];
   searchTerm: string = '';
-  searchControl: FormControl;
   searching: any = false;
 
   constructor(private clientService: ClientService,
     private route: ActivatedRoute,
     private router: Router,
-    public alertController: AlertController){  }
+    public alertController: AlertController){ }
+
+    
+
+    filterClients(ev: any) {
+
+      this.clients = this.clientsX;
+      this.searching = true;
+      const val = ev.target.value;
+      if (val && val.trim() !== '') {
+          this.clients = this.clients.filter((item) => {
+            this.searching = false;
+            return (item.firstName.toLowerCase().indexOf(val.toLowerCase()) > -1);
+          })
+      } else {
+        this.searching = true;
+      }
+  }
+
 
     navigate(c){
       this.router.navigate(['/edit-client', c.clientId]);         
@@ -66,20 +84,14 @@ export class ClientsListPage implements OnInit {
  
 
   ngOnInit() {
-    
-
-     this.retrieveClients();
-     
+    this.retrieveClients();
   }
-
-
-
-
 
   retrieveClients() {
   this.clientService.getAll()
   .subscribe(
     data => {
+      this.clientsX = data;
       this.clients = data;
       console.log(data);
     },

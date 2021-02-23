@@ -23,8 +23,8 @@ export class ClientFormPage implements OnInit {
   countriesList = [];
   citiesList = [];
   editClient : boolean = false;
-  submitted=false;
-
+  submitted : boolean = false;
+  searching : boolean = false;
   constructor(private clientService: ClientService,
     public formBuilder: FormBuilder,
     private route: ActivatedRoute,

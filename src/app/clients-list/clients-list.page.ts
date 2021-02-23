@@ -2,11 +2,11 @@ import { IClient } from './../interfaces/IClient';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ClientService } from '../services/client.service';
-
 import { FormControl } from "@angular/forms";
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { timer } from 'rxjs';
+
 
 @Component({
   selector: 'app-clients-list',
@@ -17,7 +17,8 @@ export class ClientsListPage implements OnInit {
 
   clients : IClient[];
   myParam : String;
-
+  countriesList = [];
+  citiesList = [];
   searchTerm: string = '';
   searchControl: FormControl;
   searching: any = false;
@@ -28,7 +29,7 @@ export class ClientsListPage implements OnInit {
     public alertController: AlertController){  }
 
     navigate(c){
-      this.router.navigate(['/edit-client', c.clientId]);   
+      this.router.navigate(['/edit-client', c.clientId]);         
     }
     removeClient(clientId) {
       this.alertController.create({
@@ -68,7 +69,11 @@ export class ClientsListPage implements OnInit {
     
 
      this.retrieveClients();
+     
   }
+
+
+
 
 
   retrieveClients() {

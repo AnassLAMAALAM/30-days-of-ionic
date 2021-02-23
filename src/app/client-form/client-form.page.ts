@@ -31,8 +31,6 @@ export class ClientFormPage implements OnInit {
     private router: Router,
     public alert : AlertService) {  }
 
-  
-
   ngOnInit() {
     this.fetchCoutriesCities();
     this.retrieveClient();
@@ -46,7 +44,7 @@ export class ClientFormPage implements OnInit {
         adress: ['', [Validators.required]],
         zip : ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
         city : ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]],
-        country : ['Morocco', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]]
+        country : ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z ]+')]]
       })
     })
 
@@ -78,7 +76,10 @@ export class ClientFormPage implements OnInit {
         this.editClient = true;
         this.clientService.get(this.clientId).subscribe(client =>{
         this.client = client;
+        console.log(this.client);
+        
         this.clientForm.patchValue(client);
+        this.onChangeCountry();
         })   
       }
       });
@@ -122,9 +123,6 @@ export class ClientFormPage implements OnInit {
   onSubmit(){
     this.submitted = true;
     this.client = this.clientForm.value;
-    //this.client.contact.city = this.selectedCity;
-    //this.client.contact.country = this.selectedCountry;
-
     if(this.clientForm?.valid){
       if (this.editClient) this.updateClient();
       else this.saveClient();
@@ -135,11 +133,7 @@ export class ClientFormPage implements OnInit {
 }
 
 onChangeCountry() {
-
-  console.log(this.clientForm.value.contact.country);
-  
   let selectedCountry = this.clientForm.value.contact.country;
-  
   this.citiesList = [];
   this.citiesList = countries[selectedCountry];
    this.selectedCountry = selectedCountry;
@@ -150,10 +144,9 @@ onChangeCountry() {
 }
 
 onChangeCity() {
-  this.selectedCity = this.clientForm.value.contact.city;
-
   console.log(this.selectedCity);
-  
+  this.selectedCity = this.clientForm.value.contact.city;
+  console.log(this.selectedCity);
 }
 
 }
